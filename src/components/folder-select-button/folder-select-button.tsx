@@ -3,7 +3,7 @@ import {StyleProp, Text, View, ViewStyle} from 'react-native';
 import {TouchableRipple} from 'react-native-paper';
 import {Icon} from '@components/shark-icon';
 import {textStyles, theme} from '@constants';
-import RNFileSelector from 'react-native-file-selector';
+import {selectDirectory} from 'react-native-directory-picker';
 import {
   DynamicStyleSheet,
   useDynamicStyleSheet,
@@ -24,24 +24,16 @@ export const FolderSelectButton = ({
   const styles = useDynamicStyleSheet(dynamicStyles);
   const accent = useDynamicValue(theme.colors.primary);
 
-  const selectDirectory = () => {
-    RNFileSelector.Show({
-      title: 'Select File',
-      chooseFolderMode: true,
-      onDone: (selectedPath: string) => {
-        console.log('file selected: ' + selectedPath);
-        onFolderSelect(selectedPath);
-      },
-      onCancel: () => {
-        console.log('cancelled');
-      },
+  const selectDirectoryLocal = () => {
+    selectDirectory(selectedPath => {
+      onFolderSelect(selectedPath);
     });
   };
 
   return (
     <>
       {!path && (
-        <TouchableRipple onPress={() => selectDirectory()} style={style}>
+        <TouchableRipple onPress={() => selectDirectoryLocal()} style={style}>
           <View style={styles.selectFolderBtn}>
             <Icon size={24} name="folder" color={accent} />
             <Text style={styles.selectFolderText}>Select folder...</Text>
@@ -49,7 +41,7 @@ export const FolderSelectButton = ({
         </TouchableRipple>
       )}
       {!!path && (
-        <TouchableRipple onPress={() => selectDirectory()} style={style}>
+        <TouchableRipple onPress={() => selectDirectoryLocal()} style={style}>
           <View style={styles.selectFolderBtn}>
             <Text
               ellipsizeMode="head"
