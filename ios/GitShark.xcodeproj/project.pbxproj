@@ -21,6 +21,8 @@
 		4DB8AC0905644225A483C915 /* rubik_medium_italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5971DB1D9A2A48E8AE718A46 /* rubik_medium_italic.ttf */; };
 		596DD79CEB174ED19FF98C01 /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 729A8D37AF37424393FE8FBA /* icomoon.ttf */; };
 		91BAFB0AA9752C850A64AF61 /* libPods-GitShark.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECF2861835EAE37C3BDFDFF2 /* libPods-GitShark.a */; };
+		97BBC57B24A8130500EC9FEA /* DirectoryPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BBC57A24A8130500EC9FEA /* DirectoryPicker.swift */; };
+		97BBC57D24A8135300EC9FEA /* DirectoryPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 97BBC57C24A8135300EC9FEA /* DirectoryPicker.m */; };
 		A75EE32465294E18AB284E65 /* rubik_Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E522E02AA4E54CC29C5A766D /* rubik_Italic.ttf */; };
 		B67A25259ED14732AAE439DD /* rubik_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2F359DD37D474083AEC52717 /* rubik_medium.ttf */; };
 		CDC44B1CD35B4614B94A6AD5 /* rubik_boldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F497ECA6659541D590CED245 /* rubik_boldItalic.ttf */; };
@@ -81,6 +83,9 @@
 		747B5A4B0CF50F231A7A6D82 /* Pods-GitShark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitShark.release.xcconfig"; path = "Target Support Files/Pods-GitShark/Pods-GitShark.release.xcconfig"; sourceTree = "<group>"; };
 		747FD97B973F40A095FD885C /* Rubik-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-Light.ttf"; path = "../assets/fonts/Rubik-Light.ttf"; sourceTree = "<group>"; };
 		8AE84DC76F9B4D998E051CCC /* Rubik-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-LightItalic.ttf"; path = "../assets/fonts/Rubik-LightItalic.ttf"; sourceTree = "<group>"; };
+		97BBC57924A8130400EC9FEA /* GitShark-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GitShark-Bridging-Header.h"; sourceTree = "<group>"; };
+		97BBC57A24A8130500EC9FEA /* DirectoryPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DirectoryPicker.swift; path = GitShark/DirectoryPicker.swift; sourceTree = "<group>"; };
+		97BBC57C24A8135300EC9FEA /* DirectoryPicker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = DirectoryPicker.m; path = GitShark/DirectoryPicker.m; sourceTree = "<group>"; };
 		98600476F6E142A2A23BD7A0 /* rubik_regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = rubik_regular.ttf; path = ../assets/fonts/rubik_regular.ttf; sourceTree = "<group>"; };
 		99B17CCE4987457AB782BD7A /* Rubik-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-Regular.ttf"; path = "../assets/fonts/Rubik-Regular.ttf"; sourceTree = "<group>"; };
 		9C6A9CE37C4EED6230BA1914 /* Pods-GitShark-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitShark-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-GitShark-tvOSTests/Pods-GitShark-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -164,6 +169,9 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				97BBC57A24A8130500EC9FEA /* DirectoryPicker.swift */,
+				97BBC57924A8130400EC9FEA /* GitShark-Bridging-Header.h */,
+				97BBC57C24A8135300EC9FEA /* DirectoryPicker.m */,
 			);
 			name = GitShark;
 			sourceTree = "<group>";
@@ -356,6 +364,7 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 73UF4KLZM8;
+						LastSwiftMigration = 1150;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -655,8 +664,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97BBC57B24A8130500EC9FEA /* DirectoryPicker.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				97BBC57D24A8135300EC9FEA /* DirectoryPicker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -709,6 +720,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F01696402F6678590DDDA6A3 /* Pods-GitSharkTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = 73UF4KLZM8;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -733,6 +745,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3E9FD1141DA1BEE58607EAC8 /* Pods-GitSharkTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 73UF4KLZM8;
@@ -755,6 +768,7 @@
 			baseConfigurationReference = ADAAC27A5FFFB4C5965E718A /* Pods-GitShark.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 73UF4KLZM8;
@@ -767,6 +781,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = GitShark;
+				SWIFT_OBJC_BRIDGING_HEADER = "GitShark-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -777,6 +793,7 @@
 			baseConfigurationReference = 747B5A4B0CF50F231A7A6D82 /* Pods-GitShark.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 73UF4KLZM8;
 				INFOPLIST_FILE = GitShark/Info.plist;
@@ -788,6 +805,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = GitShark;
+				SWIFT_OBJC_BRIDGING_HEADER = "GitShark-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
