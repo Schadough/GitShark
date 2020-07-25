@@ -3,6 +3,8 @@ import {StyleProp, Text, View, ViewStyle} from 'react-native';
 import {TouchableRipple} from 'react-native-paper';
 import {Icon} from '@components/shark-icon';
 // import RNFileSelector from 'react-native-file-selector';
+import {NativeModules} from 'react-native';
+
 import {theme} from '@constants';
 import {
   DynamicStyleSheet,
@@ -25,6 +27,7 @@ export const FolderSelectButton = ({
   const accent = useDynamicValue(theme.colors.primary);
 
   const selectDirectory = () => {
+    NativeModules.DirectoryPicker.pickFolder();
     // RNFileSelector.Show({
     //   title: 'Select File',
     //   chooseFolderMode: true,
