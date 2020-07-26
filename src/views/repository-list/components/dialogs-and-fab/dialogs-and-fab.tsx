@@ -36,10 +36,7 @@ export const DialogsAndFab = ({findRepos, ...props}: DialogsProps) => {
         visible={selectedAction === 'create'}
         onDismiss={onDismiss}
       />
-      <AddExistingRepositoryDialog
-        visible={selectedAction === 'existing'}
-        onDismiss={onDismiss}
-      />
+      <AddExistingRepositoryDialog visible={true} onDismiss={onDismiss} />
       <CloneRepositoryDialog
         visible={selectedAction === 'clone'}
         onDismiss={onDismiss}

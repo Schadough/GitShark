@@ -11,7 +11,6 @@ import MobileCoreServices
 
 @objc(DirectoryPicker)
 class DirectoryPicker: NSObject, UIDocumentPickerDelegate {
-  
   func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
     print(urls)
   }
@@ -23,20 +22,30 @@ class DirectoryPicker: NSObject, UIDocumentPickerDelegate {
 
   }
 
-  func pickFolder() -> Bool {
-
+  @objc
+  public func pickFolder() -> Void {
     let documentPicker =
         UIDocumentPickerViewController(documentTypes: [kUTTypeFolder as String],
                                        in: .open)
-
-    documentPicker.delegate = self
-    
-    let appDelegate  = UIApplication.shared.delegate!
-    let viewController = appDelegate.window!!.rootViewController!
-
-    // Present the document picker.
-    viewController.present(documentPicker, animated: true, completion: nil)
-
+        documentPicker.delegate = self
+    topMostViewController()?.present(documentPicker, animated: true, completion: nil)
+  }
+   
+  @objc
+  fileprivate func topMostViewController() -> UIViewController? {
+       var ret: UIViewController? = UIApplication.shared.keyWindow?.rootViewController
+       repeat {
+           if let presented = ret?.presentedViewController {
+               ret = presented
+           } else {
+               break
+           }
+       } while(true)
+       return ret
+   }
+  
+  @objc
+  static func requiresMainQueueSetup() -> Bool {
     return true
   }
 }

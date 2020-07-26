@@ -27,6 +27,7 @@ export const FolderSelectButton = ({
   const accent = useDynamicValue(theme.colors.primary);
 
   const selectDirectory = () => {
+    console.log(NativeModules);
     NativeModules.DirectoryPicker.pickFolder();
     // RNFileSelector.Show({
     //   title: 'Select File',
