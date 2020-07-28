@@ -11,6 +11,8 @@
 
 @interface RCT_EXTERN_MODULE(DirectoryPicker, NSObject)
 
-RCT_EXTERN_METHOD(pickFolder)
+RCT_EXTERN_METHOD(pickFolder:
+(RCTPromiseResolveBlock)resolve
+rejecter:(RCTPromiseRejectBlock)reject)
 
 @end

@@ -11,19 +11,21 @@ import MobileCoreServices
 
 @objc(DirectoryPicker)
 class DirectoryPicker: NSObject, UIDocumentPickerDelegate {
+  var resolve: RCTPromiseResolveBlock? = nil;
+  var reject: RCTPromiseRejectBlock? = nil;
   func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-    print(urls)
-  }
-  
-  func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
+    let paths = urls.map({ $0.path })
+    resolve!(paths)
   }
 
   func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
-
+    resolve!(nil);
   }
 
-  @objc
-  public func pickFolder() -> Void {
+  @objc(pickFolder:rejecter:)
+  public func pickFolder(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject:@escaping RCTPromiseRejectBlock) -> Void {
+    self.resolve = resolve;
+    self.reject = reject;
     DispatchQueue.main.async {
       let documentPicker =
           UIDocumentPickerViewController(documentTypes: [kUTTypeFolder as String],
