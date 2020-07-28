@@ -28,7 +28,7 @@ export const FolderSelectButton = ({
 
   const selectDirectory = () => {
     console.log(NativeModules);
-    NativeModules.DirectoryPicker.pickFolder();
+    NativeModules.DirectoryPicker.pickFolder().then(console.log);
     // RNFileSelector.Show({
     //   title: 'Select File',
     //   chooseFolderMode: true,
