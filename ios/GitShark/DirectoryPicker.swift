@@ -24,11 +24,13 @@ class DirectoryPicker: NSObject, UIDocumentPickerDelegate {
 
   @objc
   public func pickFolder() -> Void {
-    let documentPicker =
-        UIDocumentPickerViewController(documentTypes: [kUTTypeFolder as String],
-                                       in: .open)
-        documentPicker.delegate = self
-    topMostViewController()?.present(documentPicker, animated: true, completion: nil)
+    DispatchQueue.main.async {
+      let documentPicker =
+          UIDocumentPickerViewController(documentTypes: [kUTTypeFolder as String],
+                                         in: .open)
+          documentPicker.delegate = self
+      self.topMostViewController()?.present(documentPicker, animated: true, completion: nil)
+    }
   }
    
   @objc
