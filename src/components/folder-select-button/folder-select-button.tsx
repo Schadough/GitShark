@@ -9,8 +9,6 @@ import {
 } from 'react-native';
 import {TouchableRipple} from 'react-native-paper';
 import {Icon} from '@components/shark-icon';
-// import RNFileSelector from 'react-native-file-selector';
-import {NativeModules} from 'react-native';
 
 import {theme} from '@constants';
 import {
