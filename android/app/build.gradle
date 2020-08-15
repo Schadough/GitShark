@@ -135,12 +135,12 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.gitshark"
+        applicationId "dev.oceanbit.gitshark"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         multiDexEnabled true
-        versionCode 1
-        versionName "1.0"
+        versionCode 4
+        versionName "0.0.1"
     }
     splits {
         abi {
@@ -157,15 +157,21 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+         release {
+            if (project.hasProperty('GITSHARK_UPLOAD_STORE_FILE')) {
+                storeFile file(GITSHARK_UPLOAD_STORE_FILE)
+                storePassword GITSHARK_UPLOAD_STORE_PASSWORD
+                keyAlias GITSHARK_UPLOAD_KEY_ALIAS
+                keyPassword GITSHARK_UPLOAD_KEY_PASSWORD
+            }
+        }
     }
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
         }
         release {
-            // Caution! In production, you need to generate your own keystore file.
-            // see https://facebook.github.io/react-native/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
@@ -192,6 +198,8 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha02'
     implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'org.eclipse.jgit:org.eclipse.jgit:3.7.1.201504261725-r'
+    implementation 'com.github.oceanbit-dev:MaterialFilePicker:2e580ce'
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";

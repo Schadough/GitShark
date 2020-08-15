@@ -1,5 +1,12 @@
 import * as React from 'react';
-import {StyleProp, Text, View, ViewStyle} from 'react-native';
+import {
+  StyleProp,
+  Text,
+  View,
+  ViewStyle,
+  NativeModules,
+  Platform,
+} from 'react-native';
 import {TouchableRipple} from 'react-native-paper';
 import {Icon} from '@components/shark-icon';
 // import RNFileSelector from 'react-native-file-selector';
@@ -27,19 +34,26 @@ export const FolderSelectButton = ({
   const accent = useDynamicValue(theme.colors.primary);
 
   const selectDirectory = () => {
-    console.log(NativeModules);
-    NativeModules.DirectoryPicker.pickFolder().then(console.log);
-    // RNFileSelector.Show({
-    //   title: 'Select File',
-    //   chooseFolderMode: true,
-    //   onDone: (selectedPath: string) => {
-    //     console.log('file selected: ' + selectedPath);
-    //     onFolderSelect(selectedPath);
-    //   },
-    //   onCancel: () => {
-    //     console.log('cancelled');
-    //   },
-    // });
+    if (Platform.OS === 'android') {
+      NativeModules.DirectoryPickerModule.Show(
+        {
+          title: 'Select File',
+          closeMenu: true,
+          path: '',
+        },
+        (selectedPath: string) => {
+          // onDone
+          console.log('file selected: ' + selectedPath);
+          onFolderSelect(selectedPath);
+        },
+        () => {
+          // onCancel
+          console.log('cancelled');
+        },
+      );
+    } else if (Platform.OS === 'ios') {
+      NativeModules.DirectoryPicker.pickFolder().then(console.log);
+    }
   };
 
   return (

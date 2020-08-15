@@ -8,9 +8,12 @@ import {RepositoryChanges} from '../repository-changes/repository-changes';
 import {RepositoryHistory} from '../repository-history/repository-history';
 import {CommitAction} from '../commit-action/commit-action';
 import {CommitDetails} from '../commit-details/commit-details';
-import {renameRepo} from '@services';
+import {renameRepo, findTrackedRemoteBranch} from '@services';
 import {Remotes} from '@types';
-import {OnFetchActionsDialog} from './components/on-fetch-action-dialog/on-fetch-action-dialog';
+import {OnFetchActionsDialog} from './components/on-fetch-action-dialog';
+import {OnPushActionsDialog} from './components/on-push-action-dialog';
+import {RemoteBranch} from '@types';
+import {OnPullActionsDialog} from './components/on-pull-action-dialog';
 
 interface FetchDialogType {
   action: 'fetch';
@@ -21,15 +24,24 @@ interface FetchDialogType {
   };
 }
 
-interface PullDialogType {
-  action: 'pull';
-  data: any;
+interface PushDialogType {
+  action: 'push';
+  data: {
+    destination: RemoteBranch;
+    forcePush: boolean;
+    branch: string;
+  };
 }
 
-type DialogType = FetchDialogType | PullDialogType | null;
+interface PullDialogType {
+  action: 'pull';
+  data: null;
+}
+
+type DialogType = FetchDialogType | PushDialogType | PullDialogType | null;
 
 export const Repository = () => {
-  const [dialogType, setDialogType] = React.useState<DialogType>();
+  const dispatch = useThunkDispatch();
 
   const {repo, toPushPull} = useSelector(
     (state: RootState) => state.repository,
@@ -38,7 +50,20 @@ export const Repository = () => {
     (state: RootState) => state.branches,
   );
 
-  const dispatch = useThunkDispatch();
+  const [trackedBranch, setTrackedBranch] = React.useState<RemoteBranch | null>(
+    null,
+  );
+
+  React.useEffect(() => {
+    if (!repo) return;
+    findTrackedRemoteBranch({
+      branchName: repo!.currentBranchName,
+      path: repo!.path,
+      remoteBranches,
+    }).then(v => setTrackedBranch(v));
+  }, [remoteBranches, repo]);
+
+  const [dialogType, setDialogType] = React.useState<DialogType>();
 
   const {params} = useRoute();
   const {repoId} = params! as Record<string, string>;
@@ -57,6 +82,8 @@ export const Repository = () => {
   return (
     <>
       <RepositoryUI
+        currentBranch={repo?.currentBranchName || ''}
+        trackedBranch={trackedBranch}
         remotes={remotes}
         localBranches={localBranches}
         remoteBranches={remoteBranches}
@@ -70,6 +97,18 @@ export const Repository = () => {
             findRepo(repoId),
           )
         }
+        onPull={() => {
+          setDialogType({
+            action: 'pull',
+            data: null,
+          });
+        }}
+        onPush={data =>
+          setDialogType({
+            action: 'push',
+            data,
+          })
+        }
         onFetch={data =>
           setDialogType({
             action: 'fetch',
@@ -79,9 +118,27 @@ export const Repository = () => {
       />
       <OnFetchActionsDialog
         visible={dialogType?.action === 'fetch'}
-        data={dialogType?.data}
+        data={dialogType?.data as FetchDialogType['data']}
         dispatch={dispatch}
         repo={repo}
+        onDismiss={() => {
+          setDialogType(null);
+        }}
+      />
+      <OnPushActionsDialog
+        visible={dialogType?.action === 'push'}
+        data={dialogType?.data as PushDialogType['data']}
+        dispatch={dispatch}
+        repo={repo}
+        onDismiss={() => {
+          setDialogType(null);
+        }}
+      />
+      <OnPullActionsDialog
+        visible={dialogType?.action === 'pull'}
+        dispatch={dispatch}
+        repo={repo}
+        trackedBranch={trackedBranch!}
         onDismiss={() => {
           setDialogType(null);
         }}
