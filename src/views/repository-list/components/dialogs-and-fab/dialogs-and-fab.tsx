@@ -7,6 +7,7 @@ import {
   RepoListExtendedFab,
   RepoListExtendedFabProps,
 } from './repo-list-extended-fab';
+import {View} from 'react-native';
 
 interface DialogsProps
   extends Omit<RepoListExtendedFabProps, 'setSelectedAction'> {
@@ -32,15 +33,21 @@ export const DialogsAndFab = ({findRepos, ...props}: DialogsProps) => {
     // The dialogs must come AFTER the FAB otherwise there will be a z-index problem when the dialogs are open
     <>
       <RepoListExtendedFab {...props} setSelectedAction={setSelectedAction} />
-      <CreateRepositoryDialog
-        visible={selectedAction === 'create'}
-        onDismiss={onDismiss}
-      />
-      <AddExistingRepositoryDialog visible={true} onDismiss={onDismiss} />
-      <CloneRepositoryDialog
-        visible={selectedAction === 'clone'}
-        onDismiss={onDismiss}
-      />
+      {/* Prevent iOS from rendering FAB above dialogs */}
+      <View style={{zIndex: 100}}>
+        <CreateRepositoryDialog
+          visible={selectedAction === 'create'}
+          onDismiss={onDismiss}
+        />
+        <AddExistingRepositoryDialog
+          visible={selectedAction === 'existing'}
+          onDismiss={onDismiss}
+        />
+        <CloneRepositoryDialog
+          visible={selectedAction === 'clone'}
+          onDismiss={onDismiss}
+        />
+      </View>
     </>
   );
 };
